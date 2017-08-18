@@ -1,0 +1,7 @@
+{
+  "name": "web-share",
+  "short_name": "web-share",
+  "description": "-",
+  "start_url": "/",
+  "display": "standalone"
+}

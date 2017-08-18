@@ -1,0 +1,153 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<script src="https://connect.facebook.net/en_US/sdk.js"></script>
+<dom-module id="web-share-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <!--<h2>Hello [[prop1]]! </h2>-->
+    <div style="float: right;">
+        Please <a href="#">Login</a>
+    </div>
+
+
+    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+      <div id="status"></div>
+      <br/> <br/> <br/> <br/> <br/> <br/>
+    <template is="dom-repeat" items="{{loop_num}}">
+        <paper-card image="https://s.w.org/images/core/emoji/2.3/svg/1f369.svg" style="width: 30%;padding-right: 50px;padding-left: 50px;">
+          <div class="card-content">
+            <div class="cafe-header">Cafe Basilico
+              <div class="cafe-location cafe-light">
+                <iron-icon icon="communication:location-on"></iron-icon>
+                <span>250ft</span>
+              </div>
+            </div>
+            <div class="cafe-rating">
+              <iron-icon icon="star"></iron-icon>
+              <iron-icon class="star" icon="star"></iron-icon>
+              <iron-icon class="star" icon="star"></iron-icon>
+              <iron-icon class="star" icon="star"></iron-icon>
+              <iron-icon class="star" icon="star"></iron-icon>
+            </div>
+            <p>$・Italian, Cafe</p>
+            <p class="cafe-light">Small plates, salads &amp; sandwiches in an intimate setting.</p>
+          </div>
+          <div class="card-actions">
+            <div class="horizontal justified">
+              <paper-icon-button icon="icons:event"></paper-icon-button>
+              <paper-button>5:30PM</paper-button>
+              <paper-button>7:30PM</paper-button>
+              <paper-button>9:00PM</paper-button>
+              <paper-button class="cafe-reserve">Reserve</paper-button>
+            </div>
+          </div>
+        </paper-card>
+    </template>
+  </template>
+
+  <script>
+
+      function statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        // The response object is returned with a status field that lets the
+        // app know the current login status of the person.
+        // Full docs on the response object can be found in the documentation
+        // for FB.getLoginStatus().
+        if (response.status === 'connected') {
+          // Logged into your app and Facebook.
+          testAPI();
+        } else {
+          // The person is not logged into your app or we are unable to tell.
+          document.getElementById('status').innerHTML = 'Please log ' +
+            'into this app.';
+        }
+      }
+
+      // This function is called when someone finishes with the Login
+      // Button.  See the onlogin handler attached to it in the sample
+      // code below.
+      function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+          statusChangeCallback(response);
+        });
+      }
+
+      window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1446758842278302',
+        cookie     : true,  // enable cookies to allow the server to access
+                            // the session
+        xfbml      : true,  // parse social plugins on this page
+        version    : 'v2.8' // use graph api version 2.8
+      });
+
+      // Now that we've initialized the JavaScript SDK, we call
+      // FB.getLoginStatus().  This function gets the state of the
+      // person visiting this page and can return one of three states to
+      // the callback you provide.  They can be:
+      //
+      // 1. Logged into your app ('connected')
+      // 2. Logged into Facebook, but not your app ('not_authorized')
+      // 3. Not logged into Facebook and can't tell if they are logged into
+      //    your app or not.
+      //
+      // These three cases are handled in the callback function.
+
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+
+      };
+
+      // Load the SDK asynchronously
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+      // Here we run a very simple test of the Graph API after login is
+      // successful.  See statusChangeCallback() for when this call is made.
+      function testAPI() {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', function(response) {
+          console.log('Successful login for: ' + response.name);
+          document.getElementById('status').innerHTML =
+            'Thanks for logging in, ' + response.name + '!';
+        });
+      }
+
+    /**
+     * @customElement
+     * @polymer
+     */
+    class WebShareApp extends Polymer.Element {
+      static get is() { return 'web-share-app'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'web-share-app'
+          },
+            loop_num:{
+                type:Array,
+                value:[1,2,3]
+            }
+        };
+      }
+    }
+
+    window.customElements.define(WebShareApp.is, WebShareApp);
+  </script>
+</dom-module>
