@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="pages/main.html">
 <script src="https://connect.facebook.net/en_US/sdk.js"></script>
 <dom-module id="web-share-app">
   <template>
@@ -16,7 +17,7 @@
     <div style="float: right;">
         Please <a href="#">Login</a>
     </div>
-
+<main-page></main-page>
 
     <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
       <div id="status"></div>
@@ -78,7 +79,7 @@
       function checkLoginState() {
         FB.getLoginStatus(function(response) {
           statusChangeCallback(response);
-        });
+        });o
       }
 
       window.fbAsyncInit = function() {

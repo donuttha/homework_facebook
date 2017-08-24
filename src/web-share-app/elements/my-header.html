@@ -1,0 +1,62 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+
+<dom-module id="my-header">
+
+  <template>
+    <style>
+    <style>
+      :host {
+        display: block;
+      }
+        .header-custom{
+            background-color: lightblue;
+            width: 100%;
+            height: 70px;
+            margin :0px;
+        }
+        .catbook{
+            color: white;
+            font-size: 50px;
+            padding-top: 30px;
+        }
+        .login{
+            padding-top: 10px;
+            padding-left: 90%;
+        }
+    </style>
+    <div class="header-custom">
+                    <span class="login">Please <a href="#">login</a></span>
+
+            <span class="catbook" style="">Catbook</span>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class MyHeader extends Polymer.Element
+    {
+        static get is()
+        {
+            return 'my-header';
+        }
+
+    }
+
+
+    window.customElements.define(MyHeader.is, MyHeader);
+  </script>
+</dom-module>

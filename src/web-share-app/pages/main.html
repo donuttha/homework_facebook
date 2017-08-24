@@ -1,0 +1,129 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../../bower_components/app-route/app-route.html">
+
+<dom-module id="main-page">
+
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="[[rootPath]]:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+
+    <!--<h2>Hello [[prop1]]! </h2>-->
+    <div style="float: right;">
+        2Please <a href="#">Login</a>
+    </div>
+
+
+    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+      <div id="status"></div>
+      <br/> <br/> <br/> <br/> <br/> <br/>
+    <template is="dom-repeat" items="{{loop_num}}">
+        <paper-card image="https://s.w.org/images/core/emoji/2.3/svg/1f369.svg" style="width: 30%;padding-right: 50px;padding-left: 50px;">
+          <div class="card-content">
+            <div class="cafe-header">Cafe Basilico
+              <div class="cafe-location cafe-light">
+                <iron-icon icon="communication:location-on"></iron-icon>
+                <span>250ft</span>
+              </div>
+            </div>
+            <div class="cafe-rating">
+              <iron-icon icon="star"></iron-icon>
+              <iron-icon class="star" icon="star"></iron-icon>
+              <iron-icon class="star" icon="star"></iron-icon>
+              <iron-icon class="star" icon="star"></iron-icon>
+              <iron-icon class="star" icon="star"></iron-icon>
+            </div>
+            <p class="cafe-light">Small plates, salads &amp; sandwiches in an intimate setting.</p>
+          </div>
+
+          <div class="card-actions">
+            <div class="horizontal justified">
+              <paper-icon-button icon="icons:event"></paper-icon-button>
+              <paper-button>5:30PM</paper-button>
+              <paper-button>7:30PM</paper-button>
+              <paper-button>9:00PM</paper-button>
+              <paper-button class="cafe-reserve">Reserve</paper-button>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <div class="horizontal justified">
+              <paper-icon-button icon="icons:event"></paper-icon-button>
+              <paper-button>5:30PM</paper-button>
+              <paper-button>7:30PM</paper-button>
+              <paper-button>9:00PM</paper-button>
+              <paper-button class="cafe-reserve">Reserve</paper-button>
+            </div>
+          </div>
+
+        </paper-card>
+    </template>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class MainPage extends Polymer.Element {
+      static get is() { return 'main-page'; }
+      static get properties() {
+        return {
+          page: {
+            type: String,
+            reflectToAttribute: true,
+            observer: '_pageChanged',
+          },
+          routeData: Object,
+          subroute: String,
+          // This shouldn't be neccessary, but the Analyzer isn't picking up
+          // Polymer.Element#rootPath
+          rootPath: String,
+        };
+      }
+
+      static get observers() {
+        return [
+          '_routePageChanged(routeData.page)',
+        ];
+      }
+
+      _routePageChanged(page) {
+        // If no page was found in the route data, page will be an empty string.
+        // Deault to 'view1' in that case.
+        this.page = page || 'image-detail';
+
+
+      }
+
+      _pageChanged(page) {
+        // Load page import on demand. Show 404 page if fails
+        var resolvedPageUrl = this.resolveUrl(page + '.html');
+        Polymer.importHref(
+            resolvedPageUrl,
+            null,
+            this._showPage404.bind(this),
+            true);
+      }
+
+      _showPage404() {
+        this.page = 'view404';
+      }
+    }
+
+    window.customElements.define(MainPage.is, MainPage);
+  </script>
+</dom-module>

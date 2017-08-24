@@ -1,0 +1,82 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../elements/my-header.html">
+
+<dom-module id="image-detail">
+
+  <template>
+    <style>
+    <style>
+      :host {
+        display: block;
+        margin: 0;
+        padding: 0;
+        min-width: 100px; !important;
+    margin: 0px;!important;
+      }
+        body, my-header{
+                min-width: 100px; !important;
+    margin: 0px;!important;
+        }
+    </style>
+    <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="[[rootPath]]:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+<my-header></my-header>
+<center>
+      <paper-card image="https://s.w.org/images/core/emoji/2.3/svg/1f369.svg" style="width: 30%;padding-right: 50px;padding-left: 50px;margin: 30px;">
+
+          <div class="card-actions">
+            <div class="horizontal justified">
+              <paper-button class="cafe-reserve">Like</paper-button>
+                <span>1</span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <div class="horizontal justified">
+                <iron-icon icon="star"></iron-icon>
+<paper-icon-button icon="favorite" title="heart"></paper-icon-button>            </div>
+          </div>
+
+        </paper-card>
+    <br>
+<p>Post by : nat</p>
+<p>Like by : donut</p>
+<p>Post date : 12-12-2016 20:30</p>
+    <br>
+<paper-icon-button icon="favorite" title="heart"></paper-icon-button>
+</center>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class ImageDetail extends Polymer.Element
+    {
+        static get is()
+        {
+            return 'image-detail';
+        }
+
+    }
+
+
+    window.customElements.define(ImageDetail.is, ImageDetail);
+  </script>
+</dom-module>

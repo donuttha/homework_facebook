@@ -1,0 +1,44 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../../bower_components/app-route/app-route.html">
+
+<dom-module id="redirect">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <app-location route="{{route}}"></app-location>
+    <app-route
+    route="{{route}}"
+    pattern="/:page"
+    data="{{routeData}}"></app-route>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class redirect extends Polymer.Element {
+      static get is() { return 'redirect'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'Please Login'
+          },
+            routeData:Object,
+            route:Object
+        };
+      }
+    }
+
+    window.customElements.define(redirect.is, redirect);
+  </script>
+</dom-module>
