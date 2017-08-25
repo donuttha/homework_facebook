@@ -9,6 +9,8 @@
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/iron-iconset-svg/iron-iconset-svg.html">
 <link rel="import" href="../elements/my-header.html">
 
 <dom-module id="image-detail">
@@ -40,15 +42,15 @@
 
           <div class="card-actions">
             <div class="horizontal justified">
-              <paper-button class="cafe-reserve">Like</paper-button>
+              <paper-button class="cafe-reserve" on-click="_heart_click">
+                  <img id="heart_btn" src="../../images/heart-unselect.png" style="width: 20px;height: 20px;">
+              </paper-button>
                 <span>1</span>
             </div>
           </div>
 
           <div class="card-actions">
             <div class="horizontal justified">
-                <iron-icon icon="star"></iron-icon>
-<paper-icon-button icon="favorite" title="heart"></paper-icon-button>            </div>
           </div>
 
         </paper-card>
@@ -58,6 +60,7 @@
 <p>Post date : 12-12-2016 20:30</p>
     <br>
 <paper-icon-button icon="favorite" title="heart"></paper-icon-button>
+    <iron-icon icon="maps:directions-bus"></iron-icon>
 </center>
 
   </template>
@@ -72,6 +75,16 @@
         static get is()
         {
             return 'image-detail';
+        }
+        _heart_click(){
+            var img_src = this.$.heart_btn.src;
+            var is_unselect = img_src.indexOf("heart-unselect");
+            if( is_unselect != -1){
+                this.$.heart_btn.src = '../../images/heart-select.png';
+            }
+            else{
+                this.$.heart_btn.src ='../../images/heart-unselect.png';
+            }
         }
 
     }
