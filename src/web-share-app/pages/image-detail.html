@@ -45,7 +45,7 @@
               <paper-button class="cafe-reserve" on-click="_heart_click">
                   <img id="heart_btn" src="../../images/heart-unselect.png" style="width: 20px;height: 20px;">
               </paper-button>
-                <span>1</span>
+                <span>{{liketotal}}</span>
             </div>
           </div>
 
@@ -55,12 +55,17 @@
 
         </paper-card>
     <br>
-<p>Post by : nat</p>
-<p>Like by : donut</p>
-<p>Post date : 12-12-2016 20:30</p>
+<p>Post by : [[postname]]</p>
+<p>Like by :
+    <template is="dom-repeat" items="{{likelist}}">
+        <template is="dom-if" if="{{_addcomma(index)}}">
+            ,
+        </template>
+    {{ item }}
+    </template>
+</p>
+<p>Post date : {{postdate}}</p>
     <br>
-<paper-icon-button icon="favorite" title="heart"></paper-icon-button>
-    <iron-icon icon="maps:directions-bus"></iron-icon>
 </center>
 
   </template>
@@ -76,16 +81,55 @@
         {
             return 'image-detail';
         }
+        static get properties() {
+        return {
+          page: {
+            type: String
+          },
+          routeData: Object,
+          subroute: String,
+          rootPath: String,
+          postname:{
+          type:String,
+          value:'Natz'
+          },
+          likelist:{
+              type:Array,
+              value:['Donut', 'Aom']
+          },
+          liketotal:{
+              type:String,
+              value:'1'
+          },
+            postdate:{
+                type:String,
+                value:'12-12-2016 20:30'
+            }
+        }
+        };
+        _addcomma(_index){
+            if(_index != '0'){
+                return true;
+            }
+            return false;
+        }
         _heart_click(){
             var img_src = this.$.heart_btn.src;
             var is_unselect = img_src.indexOf("heart-unselect");
             if( is_unselect != -1){
                 this.$.heart_btn.src = '../../images/heart-select.png';
+                var old_like = this.liketotal;
+                var new_like = parseInt(old_like) + 1;
+                this.liketotal = new_like;
             }
             else{
+                var old_like = this.liketotal;
+                var new_like = parseInt(old_like) - 1;
+                this.liketotal = new_like;
                 this.$.heart_btn.src ='../../images/heart-unselect.png';
             }
         }
+
 
     }
 
