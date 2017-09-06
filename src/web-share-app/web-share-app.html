@@ -13,46 +13,11 @@
       }
     </style>
 
-    <!--<h2>Hello [[prop1]]! </h2>-->
-    <div style="float: right;">
-        Please <a href="#">Login</a>
-    </div>
-<main-page></main-page>
-
     <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
-      <div id="status"></div>
-      <br/> <br/> <br/> <br/> <br/> <br/>
-    <template is="dom-repeat" items="{{loop_num}}">
-        <paper-card image="https://s.w.org/images/core/emoji/2.3/svg/1f369.svg" style="width: 30%;padding-right: 50px;padding-left: 50px;">
-          <div class="card-content">
-            <div class="cafe-header">Cafe Basilico
-              <div class="cafe-location cafe-light">
-                <iron-icon icon="communication:location-on"></iron-icon>
-                <span>250ft</span>
-              </div>
-            </div>
-            <div class="cafe-rating">
-              <iron-icon icon="star"></iron-icon>
-              <iron-icon class="star" icon="star"></iron-icon>
-              <iron-icon class="star" icon="star"></iron-icon>
-              <iron-icon class="star" icon="star"></iron-icon>
-              <iron-icon class="star" icon="star"></iron-icon>
-            </div>
-            <p>$・Italian, Cafe</p>
-            <p class="cafe-light">Small plates, salads &amp; sandwiches in an intimate setting.</p>
-          </div>
-          <div class="card-actions">
-            <div class="horizontal justified">
-              <paper-icon-button icon="icons:event"></paper-icon-button>
-              <paper-button>5:30PM</paper-button>
-              <paper-button>7:30PM</paper-button>
-              <paper-button>9:00PM</paper-button>
-              <paper-button class="cafe-reserve">Reserve</paper-button>
-            </div>
-          </div>
-        </paper-card>
-    </template>
+
   </template>
+
+    <div id="fb-root"></div>
 
   <script>
 
@@ -68,8 +33,7 @@
           testAPI();
         } else {
           // The person is not logged into your app or we are unable to tell.
-          document.getElementById('status').innerHTML = 'Please log ' +
-            'into this app.';
+//          document.getElementById('span_login').innerHTML = 'Please log ' + 'into this app.';
         }
       }
 
@@ -79,7 +43,7 @@
       function checkLoginState() {
         FB.getLoginStatus(function(response) {
           statusChangeCallback(response);
-        });o
+        }, {scope: 'email,user_likes'});
       }
 
       window.fbAsyncInit = function() {
@@ -122,10 +86,11 @@
       // successful.  See statusChangeCallback() for when this call is made.
       function testAPI() {
         console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', function(response) {
+        FB.api('/me',  { locale: 'en_US', fields: 'name, email' }, function(response) {
           console.log('Successful login for: ' + response.name);
-          document.getElementById('status').innerHTML =
-            'Thanks for logging in, ' + response.name + '!';
+          console.log(response);
+localStorage.setItem('email',response.email);
+//          document.getElementById('span_login').innerHTML =  'Thanks for logging in, ' + response.name + '!';
         });
       }
 

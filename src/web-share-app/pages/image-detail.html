@@ -17,17 +17,16 @@
 
   <template>
     <style>
-    <style>
-      :host {
-        display: block;
-        margin: 0;
-        padding: 0;
-        min-width: 100px; !important;
-    margin: 0px;!important;
-      }
+        :host {
+            display: block;
+            margin: 0;
+            padding: 0;
+            min-width: 100px; !important;
+            margin: 0px;!important;
+        }
         body, my-header{
-                min-width: 100px; !important;
-    margin: 0px;!important;
+            margin:0;
+            padding:0;
         }
     </style>
     <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
@@ -37,6 +36,7 @@
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
 <my-header></my-header>
+      <div class="fb-login-button"></div>
 <center>
       <paper-card image="https://s.w.org/images/core/emoji/2.3/svg/1f369.svg" style="width: 30%;padding-right: 50px;padding-left: 50px;margin: 30px;">
 
@@ -45,7 +45,7 @@
               <paper-button class="cafe-reserve" on-click="_heart_click">
                   <img id="heart_btn" src="../../images/heart-unselect.png" style="width: 20px;height: 20px;">
               </paper-button>
-                <span>{{liketotal}}</span>
+                <span id="abc">{{liketotal}}</span>
             </div>
           </div>
 
